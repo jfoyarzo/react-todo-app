@@ -1,6 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import TodosList from './TodosList';
+import Header from './Header';
 
 class TodoContainer extends React.Component {
   state = {
@@ -27,6 +28,7 @@ class TodoContainer extends React.Component {
     const { todos } = this.state;
     return (
       <div>
+        <Header />
         <TodosList todos={todos} />
       </div>
     );
