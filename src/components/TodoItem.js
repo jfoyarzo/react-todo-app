@@ -3,7 +3,7 @@ import React from 'react';
 
 class TodoItem extends React.Component {
   render() {
-    const { todo, handleChangeProps } = this.props;
+    const { todo, handleChangeProps, deleteTodoProps } = this.props;
     return (
       <li>
         <input
@@ -11,6 +11,7 @@ class TodoItem extends React.Component {
           checked={todo.completed}
           onChange={() => handleChangeProps(todo.id)}
         />
+        <button type="button" onClick={() => deleteTodoProps(todo.id)}>Delete</button>
         {todo.title}
       </li>
     );

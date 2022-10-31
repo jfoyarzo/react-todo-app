@@ -1,38 +1,61 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import TodosList from './TodosList';
 import Header from './Header';
+import InputTodo from './InputTodo';
 
 class TodoContainer extends React.Component {
   state = {
     todos: [
       {
-        id: 1,
+        id: uuidv4(),
         title: 'Setup development environment',
         completed: true,
       },
       {
-        id: 2,
+        id: uuidv4(),
         title: 'Develop website and add content',
         completed: false,
       },
       {
-        id: 3,
+        id: uuidv4(),
         title: 'Deploy to live server',
         completed: false,
       },
     ],
   };
 
-  handleChange = (id) => {
+  delTodo = (id) => {
     const { todos } = this.state;
     this.setState({
-      todos: todos.map((todo) => {
+      todos: [...todos.filter((todo) => todo.id !== id)],
+    });
+  };
+
+  handleChange = (id) => {
+    this.setState((prevState) => ({
+      todos: prevState.todos.map((todo) => {
         if (todo.id === id) {
-          todo.completed = !todo.completed;
+          return {
+            ...todo,
+            completed: !todo.completed,
+          };
         }
         return todo;
       }),
+    }));
+  };
+
+  addTodoItem = (title) => {
+    const { todos } = this.state;
+    const newTodo = {
+      id: uuidv4(),
+      title,
+      completed: false,
+    };
+    this.setState({
+      todos: [...todos, newTodo],
     });
   };
 
@@ -41,9 +64,11 @@ class TodoContainer extends React.Component {
     return (
       <div>
         <Header />
+        <InputTodo addTodoProps={this.addTodoItem} />
         <TodosList
           todos={todos}
           handleChangeProps={this.handleChange}
+          deleteTodoProps={this.delTodo}
         />
       </div>
     );
