@@ -43,15 +43,14 @@ const TodoContainer = () => {
   const setUpdate = (updatedTitle, id) => {
     setTodos(
       todos.map((todo) => {
+        const tempTodo = todo;
         if (todo.id === id) {
-          todo.title = updatedTitle;
+          tempTodo.title = updatedTitle;
         }
-        return todo;
+        return tempTodo;
       }),
     );
   };
-
- 
 
   useEffect(() => {
     const temp = JSON.stringify(todos);

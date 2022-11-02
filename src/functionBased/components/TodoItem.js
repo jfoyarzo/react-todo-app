@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { FaTrash } from 'react-icons/fa';
 import styles from './TodoItem.module.css';
 
@@ -36,10 +37,6 @@ const TodoItem = (props) => {
     editMode.display = 'none';
   }
 
-  useEffect(() => () => {
-    console.log('Cleaning up...');
-  }, []);
-
   return (
     <li className={styles.item}>
       <div onDoubleClick={handleEditing} style={viewMode}>
@@ -68,6 +65,17 @@ const TodoItem = (props) => {
       />
     </li>
   );
+};
+
+TodoItem.propTypes = {
+  todo: PropTypes.shape({
+    completed: PropTypes.bool,
+    id: PropTypes.string,
+    title: PropTypes.string,
+  }).isRequired,
+  handleChangeProps: PropTypes.func.isRequired,
+  deleteTodoProps: PropTypes.func.isRequired,
+  setUpdate: PropTypes.func.isRequired,
 };
 
 export default TodoItem;
